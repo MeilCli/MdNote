@@ -345,6 +345,10 @@ class MarkdownSpanExtractor {
     }
 
     private fun EscapedCharacter.toSpan(): MarkdownSpan {
-        return MarkdownSpan(MarkdownSpan.Element(SkipSpan(), startOffset, startOffset + openingMarker.length))
+        return MarkdownSpan(
+            MarkdownSpan.Element(SkipSpan(), startOffset, startOffset + openingMarker.length),
+            startOffset,
+            endOffset
+        )
     }
 }
