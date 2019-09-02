@@ -17,7 +17,7 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.spans
+package net.meilcli.mdnote.markdown.spans
 
 import android.graphics.Canvas
 import android.graphics.Paint

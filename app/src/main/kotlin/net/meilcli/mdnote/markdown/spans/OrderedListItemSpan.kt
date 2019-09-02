@@ -17,30 +17,34 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.spans
+package net.meilcli.mdnote.markdown.spans
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.text.Layout
+import android.text.StaticLayout
+import android.text.TextPaint
 import android.text.style.LeadingMarginSpan
 
 /**
  * [level] number start from 1
  */
-class BulletListItemSpan(private val level: Int) : LeadingMarginSpan {
+class OrderedListItemSpan(private val level: Int, private val number: Int) : LeadingMarginSpan {
 
     companion object {
 
         val color = Color.GRAY
-        val indent = 40 // ToDo: from context
+        val indent = 40 // ToDo from context
         val width = 80 // ToDo: from context
-        val radius = 10 // ToDo: from context
         val gap = 20 // ToDo: from context
     }
 
+    private var textPaint = TextPaint()
+    private var layout: StaticLayout? = null
+
     override fun getLeadingMargin(first: Boolean): Int {
-        return width + gap + indent * (level - 1)
+        return width + gap + indent * (level -1)
     }
 
     override fun drawLeadingMargin(
@@ -57,20 +61,30 @@ class BulletListItemSpan(private val level: Int) : LeadingMarginSpan {
         first: Boolean,
         layout: Layout?
     ) {
-        val oldStyle = p.style
         val oldColor = p.color
 
-        p.style = Paint.Style.FILL
         p.color = color
 
-        c.drawCircle(
-            x.toFloat() + indent * (level - 1) + (width / 2).toFloat(),
-            (top + bottom) / 2F,
-            radius.toFloat(),
-            p
-        )
+        val staticLayout = this.layout ?: createLayout(p)
+        this.layout = staticLayout
 
-        p.style = oldStyle
+        val saveCount = c.save()
+        try {
+            c.translate(x.toFloat() + indent * (level - 1), top.toFloat() - p.fontMetricsInt.leading)
+            staticLayout.draw(c)
+        } finally {
+            c.restoreToCount(saveCount)
+        }
+
         p.color = oldColor
+    }
+
+    private fun createLayout(paint: Paint): StaticLayout {
+        textPaint.set(paint)
+        val numberText = "$number."
+        return StaticLayout.Builder
+            .obtain(numberText, 0, numberText.length, textPaint, width)
+            .setAlignment(Layout.Alignment.ALIGN_OPPOSITE)
+            .build()
     }
 }

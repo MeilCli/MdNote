@@ -17,7 +17,7 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.markdown
 
 import android.content.Context
 import android.text.Editable
@@ -31,7 +31,7 @@ class MarkdownEditView : EditText {
     private val spans = mutableListOf<MarkdownSpan>()
     private var hidedSpan: MarkdownSpan? = null
 
-    private val spanExtractor = MarkdownSpanExtractor()
+    private val spanExtractor = MarkdownSpanExtractor(listOf(AppMarkdownPlugin())) // ToDo: from application
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)

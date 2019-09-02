@@ -17,7 +17,7 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.markdown.extractors
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -26,70 +26,40 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
 import com.vladsch.flexmark.ast.*
-import com.vladsch.flexmark.ext.escaped.character.EscapedCharacter
-import com.vladsch.flexmark.ext.escaped.character.EscapedCharacterExtension
-import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.ast.Node
-import com.vladsch.flexmark.util.data.MutableDataSet
-import net.meilcli.mdnote.extensions.lineIndices
-import net.meilcli.mdnote.spans.*
+import net.meilcli.mdnote.markdown.IMarkdownSpanExtractor
+import net.meilcli.mdnote.markdown.MarkdownContext
+import net.meilcli.mdnote.markdown.MarkdownSpan
+import net.meilcli.mdnote.markdown.spans.*
 
-class MarkdownSpanExtractor {
+class CoreExtractor(
+    private val parent: IMarkdownSpanExtractor
+) : IMarkdownSpanExtractor {
 
-    private class Context(markdown: String) {
-
-        private val lineIndices = markdown.lineIndices()
-
-        fun getStartIndexOfLine(line: Int): Int {
-            // no-check array index
-            return lineIndices[line].first
-        }
-
-        fun getEndIndexOfLine(line: Int): Int {
-            // no-check array index
-            return lineIndices[line].second
-        }
-    }
-
-    private val options = MutableDataSet()
-        .set(Parser.EXTENSIONS, listOf(EscapedCharacterExtension.create()))
-    private val parser = Parser.builder(options).build()
-
-    fun extract(markdown: String): List<MarkdownSpan> {
-        val document = parser.parse(markdown)
-        val context = Context(markdown)
-        val spans = mutableListOf<MarkdownSpan>()
-        for (node in document.children) {
-            childExtract(node, context) { spans.add(it) }
-        }
-        return spans
-    }
-
-    private fun childExtract(node: Node, context: Context, addSpan: (MarkdownSpan) -> Unit) {
+    override fun extract(node: Node, context: MarkdownContext, addSpanToResult: (MarkdownSpan) -> Unit) {
         when (node) {
-            is Heading -> addSpan(node.toSpan())
-            is HardLineBreak -> addSpan(node.toSpan()) // ToDo: replace to line icon
+            is Heading -> addSpanToResult(node.toSpan())
+            is HardLineBreak -> addSpanToResult(node.toSpan()) // ToDo: replace to line icon
             is Paragraph -> {
                 for (child in node.children) {
-                    childExtract(child, context, addSpan)
+                    parent.extract(child, context, addSpanToResult)
                 }
             }
-            is Emphasis -> addSpan(node.toSpan())
-            is StrongEmphasis -> addSpan(node.toSpan())
-            is Link -> addSpan(node.toSpan())
-            is BlockQuote -> addSpan(node.toSpan(context))
-            is BulletList -> addSpan(node.toSpan(context))
-            is OrderedList -> addSpan(node.toSpan(context))
+            is Emphasis -> addSpanToResult(node.toSpan())
+            is StrongEmphasis -> addSpanToResult(node.toSpan())
+            is Link -> addSpanToResult(node.toSpan())
+            is BlockQuote -> addSpanToResult(node.toSpan(parent, context))
+            is BulletList -> addSpanToResult(node.toSpan(parent, context))
+            is OrderedList -> addSpanToResult(node.toSpan(parent, context))
             is TextBase -> {
                 if (node.hasChildren()) {
                     for (child in node.children) {
-                        childExtract(child, context, addSpan)
+                        parent.extract(child, context, addSpanToResult)
                     }
                 }
             }
             is Text -> { /* skip */
             }
-            is EscapedCharacter -> addSpan(node.toSpan())
             else -> Log.d("a", "unknown: ${node.javaClass}")
         }
     }
@@ -115,9 +85,21 @@ class MarkdownSpanExtractor {
                 val textStartIndex = chars.indexOf(text)
                 return MarkdownSpan(
                     listOf(
-                        MarkdownSpan.Element(SkipSpan(), startOffset, startOffset + textStartIndex),
-                        MarkdownSpan.Element(RelativeSizeSpan(proportion), startOffset + textStartIndex, endOffset),
-                        MarkdownSpan.Element(HeadingUnderlineSpan(underline), endOffset - 1, endOffset)
+                        MarkdownSpan.Element(
+                            SkipSpan(),
+                            startOffset,
+                            startOffset + textStartIndex
+                        ),
+                        MarkdownSpan.Element(
+                            RelativeSizeSpan(proportion),
+                            startOffset + textStartIndex,
+                            endOffset
+                        ),
+                        MarkdownSpan.Element(
+                            HeadingUnderlineSpan(underline),
+                            endOffset - 1,
+                            endOffset
+                        )
                     ),
                     startOffset,
                     endOffset
@@ -129,13 +111,21 @@ class MarkdownSpanExtractor {
                 // ---
                 return MarkdownSpan(
                     listOf(
-                        MarkdownSpan.Element(RelativeSizeSpan(proportion), startOffset, startOffset + text.length),
+                        MarkdownSpan.Element(
+                            RelativeSizeSpan(proportion),
+                            startOffset,
+                            startOffset + text.length
+                        ),
                         MarkdownSpan.Element(
                             HeadingUnderlineSpan(underline),
                             startOffset + text.length - 1,
                             startOffset + text.length
                         ),
-                        MarkdownSpan.Element(SkipSpan(), startOffset + text.length, endOffset)
+                        MarkdownSpan.Element(
+                            SkipSpan(),
+                            startOffset + text.length,
+                            endOffset
+                        )
                     ),
                     startOffset,
                     endOffset
@@ -145,7 +135,13 @@ class MarkdownSpanExtractor {
     }
 
     private fun HardLineBreak.toSpan(): MarkdownSpan {
-        return MarkdownSpan(MarkdownSpan.Element(HardLineBreakSpan(), startOffset, endOffset))
+        return MarkdownSpan(
+            MarkdownSpan.Element(
+                HardLineBreakSpan(),
+                startOffset,
+                endOffset
+            )
+        )
     }
 
     private fun Emphasis.toSpan(): MarkdownSpan {
@@ -158,7 +154,11 @@ class MarkdownSpanExtractor {
                     startOffset + textStartIndex,
                     startOffset + textStartIndex + text.length
                 ),
-                MarkdownSpan.Element(SkipSpan(), startOffset + textStartIndex + text.length, endOffset)
+                MarkdownSpan.Element(
+                    SkipSpan(),
+                    startOffset + textStartIndex + text.length,
+                    endOffset
+                )
             ),
             startOffset,
             endOffset
@@ -175,7 +175,11 @@ class MarkdownSpanExtractor {
                     startOffset + textStartIndex,
                     startOffset + textStartIndex + text.length
                 ),
-                MarkdownSpan.Element(SkipSpan(), startOffset + textStartIndex + text.length, endOffset)
+                MarkdownSpan.Element(
+                    SkipSpan(),
+                    startOffset + textStartIndex + text.length,
+                    endOffset
+                )
             ),
             startOffset,
             endOffset
@@ -192,16 +196,30 @@ class MarkdownSpanExtractor {
                     startOffset + textStartIndex,
                     startOffset + textStartIndex + text.length
                 ),
-                MarkdownSpan.Element(SkipSpan(), startOffset + textStartIndex + text.length, endOffset)
+                MarkdownSpan.Element(
+                    SkipSpan(),
+                    startOffset + textStartIndex + text.length,
+                    endOffset
+                )
             ),
             startOffset,
             endOffset
         )
     }
 
-    private fun BlockQuote.toSpan(context: Context, nested: Int = 0): MarkdownSpan {
+    private fun BlockQuote.toSpan(
+        parent: IMarkdownSpanExtractor,
+        context: MarkdownContext,
+        nested: Int = 0
+    ): MarkdownSpan {
         if (hasChildren().not()) {
-            return MarkdownSpan(MarkdownSpan.Element(SkipSpan(), startOffset, endOffset))
+            return MarkdownSpan(
+                MarkdownSpan.Element(
+                    SkipSpan(),
+                    startOffset,
+                    endOffset
+                )
+            )
         }
 
         val elements = mutableListOf<MarkdownSpan.Element>()
@@ -227,14 +245,14 @@ class MarkdownSpanExtractor {
                         startIndex = node.startOffset + endIndex + content.length
                     }
 
-                    childExtract(node, context) { spans.add(it) }
+                    parent.extract(node, context) { spans.add(it) }
                 }
-                is BulletList -> spans.add(node.toSpan(context))
-                is OrderedList -> spans.add(node.toSpan(context))
+                is BulletList -> spans.add(node.toSpan(parent, context))
+                is OrderedList -> spans.add(node.toSpan(parent, context))
                 is BlockQuote -> {
                     // skip marker, because cannot escape when no-skip
                     elements.add(MarkdownSpan.Element(SkipSpan(), node.startOffset - (nested + 1), node.startOffset))
-                    elements.addAll(node.toSpan(context, nested + 1).elements)
+                    elements.addAll(node.toSpan(parent, context, nested + 1).elements)
                 }
                 else -> Log.d("a", "unknown in block quote: ${node.javaClass}")
             }
@@ -244,19 +262,27 @@ class MarkdownSpanExtractor {
         return MarkdownSpan(elements, startOffset, endOffset)
     }
 
-    private fun BulletList.toSpan(context: Context, nested: Int = 0): MarkdownSpan {
+    private fun BulletList.toSpan(
+        parent: IMarkdownSpanExtractor,
+        context: MarkdownContext,
+        nested: Int = 0
+    ): MarkdownSpan {
         val spans = mutableListOf<MarkdownSpan>()
 
         for (node in children) {
             when (node) {
-                is BulletListItem -> spans.add(node.toSpan(context, nested))
+                is BulletListItem -> spans.add(node.toSpan(parent, context, nested))
             }
         }
 
         return MarkdownSpan(spans.flatMap { it.elements }, startOffset, endOffset)
     }
 
-    private fun BulletListItem.toSpan(context: Context, nested: Int): MarkdownSpan {
+    private fun BulletListItem.toSpan(
+        parent: IMarkdownSpanExtractor,
+        context: MarkdownContext,
+        nested: Int
+    ): MarkdownSpan {
         val spans = mutableListOf<MarkdownSpan>()
         val elements = mutableListOf<MarkdownSpan.Element>()
 
@@ -282,10 +308,10 @@ class MarkdownSpanExtractor {
                         )
                     )
 
-                    childExtract(node, context) { spans.add(it) }
+                    parent.extract(node, context) { spans.add(it) }
                 }
-                is BulletList -> spans.add(node.toSpan(context, nested + 1))
-                is OrderedList -> spans.add((node.toSpan(context, nested + 1)))
+                is BulletList -> spans.add(node.toSpan(parent, context, nested + 1))
+                is OrderedList -> spans.add((node.toSpan(parent, context, nested + 1)))
             }
         }
 
@@ -294,19 +320,28 @@ class MarkdownSpanExtractor {
         return MarkdownSpan(elements, startOffset, endOffset)
     }
 
-    private fun OrderedList.toSpan(context: Context, nested: Int = 0): MarkdownSpan {
+    private fun OrderedList.toSpan(
+        parent: IMarkdownSpanExtractor,
+        context: MarkdownContext,
+        nested: Int = 0
+    ): MarkdownSpan {
         val spans = mutableListOf<MarkdownSpan>()
 
         for ((i, node) in children.withIndex()) {
             when (node) {
-                is OrderedListItem -> spans.add(node.toSpan(context, nested, i + 1))
+                is OrderedListItem -> spans.add(node.toSpan(parent, context, nested, i + 1))
             }
         }
 
         return MarkdownSpan(spans.flatMap { it.elements }, startOffset, endOffset)
     }
 
-    private fun OrderedListItem.toSpan(context: Context, nested: Int, number: Int): MarkdownSpan {
+    private fun OrderedListItem.toSpan(
+        parent: IMarkdownSpanExtractor,
+        context: MarkdownContext,
+        nested: Int,
+        number: Int
+    ): MarkdownSpan {
         val spans = mutableListOf<MarkdownSpan>()
         val elements = mutableListOf<MarkdownSpan.Element>()
 
@@ -332,23 +367,15 @@ class MarkdownSpanExtractor {
                         )
                     )
 
-                    childExtract(node, context) { spans.add(it) }
+                    parent.extract(node, context) { spans.add(it) }
                 }
-                is OrderedList -> spans.add(node.toSpan(context, nested + 1))
-                is BulletList -> spans.add(node.toSpan(context, nested + 1))
+                is OrderedList -> spans.add(node.toSpan(parent, context, nested + 1))
+                is BulletList -> spans.add(node.toSpan(parent, context, nested + 1))
             }
         }
 
         elements.addAll(spans.flatMap { it.elements })
 
         return MarkdownSpan(elements, startOffset, endOffset)
-    }
-
-    private fun EscapedCharacter.toSpan(): MarkdownSpan {
-        return MarkdownSpan(
-            MarkdownSpan.Element(SkipSpan(), startOffset, startOffset + openingMarker.length),
-            startOffset,
-            endOffset
-        )
     }
 }

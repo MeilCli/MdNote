@@ -24,7 +24,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <net.meilcli.mdnote.MarkdownEditView
+    <net.meilcli.mdnote.markdown.MarkdownEditView
         android:id="@+id/edit"
         android:gravity="top"
         android:layout_width="match_parent"

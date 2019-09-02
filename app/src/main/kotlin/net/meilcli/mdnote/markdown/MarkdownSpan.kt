@@ -17,7 +17,7 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.markdown
 
 import android.text.Editable
 

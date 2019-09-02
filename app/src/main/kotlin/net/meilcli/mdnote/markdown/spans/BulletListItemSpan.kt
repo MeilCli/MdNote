@@ -17,7 +17,7 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.spans
+package net.meilcli.mdnote.markdown.spans
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -25,18 +25,22 @@ import android.graphics.Paint
 import android.text.Layout
 import android.text.style.LeadingMarginSpan
 
-class BlockQuoteSpan : LeadingMarginSpan {
+/**
+ * [level] number start from 1
+ */
+class BulletListItemSpan(private val level: Int) : LeadingMarginSpan {
 
     companion object {
 
-        private val color = Color.GRAY
-        private val width = 40 // ToDo: from context
-        private val lineWidth = 15 // ToDo: from context
-        private val gap = 20 // ToDo: from context
+        val color = Color.GRAY
+        val indent = 40 // ToDo: from context
+        val width = 80 // ToDo: from context
+        val radius = 10 // ToDo: from context
+        val gap = 20 // ToDo: from context
     }
 
     override fun getLeadingMargin(first: Boolean): Int {
-        return width + gap
+        return width + gap + indent * (level - 1)
     }
 
     override fun drawLeadingMargin(
@@ -51,7 +55,7 @@ class BlockQuoteSpan : LeadingMarginSpan {
         start: Int,
         end: Int,
         first: Boolean,
-        layout: Layout
+        layout: Layout?
     ) {
         val oldStyle = p.style
         val oldColor = p.color
@@ -59,8 +63,12 @@ class BlockQuoteSpan : LeadingMarginSpan {
         p.style = Paint.Style.FILL
         p.color = color
 
-        val baseX = x.toFloat() + (width - lineWidth) / 2
-        c.drawRect(baseX, top.toFloat(), baseX + lineWidth, bottom.toFloat(), p)
+        c.drawCircle(
+            x.toFloat() + indent * (level - 1) + (width / 2).toFloat(),
+            (top + bottom) / 2F,
+            radius.toFloat(),
+            p
+        )
 
         p.style = oldStyle
         p.color = oldColor

@@ -17,34 +17,21 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.spans
+package net.meilcli.mdnote.markdown
 
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.text.style.ReplacementSpan
+import net.meilcli.mdnote.extensions.lineIndices
 
-class SkipSpan : ReplacementSpan() {
+class MarkdownContext(markdown: String) {
 
-    override fun getSize(paint: Paint, text: CharSequence?, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
-        if (fm != null) {
-            fm.ascent = 0
-            fm.descent = 0
-            fm.top = 0
-            fm.bottom = 0
-        }
-        return 0
+    private val lineIndices = markdown.lineIndices()
+
+    fun getStartIndexOfLine(line: Int): Int {
+        // no-check array index
+        return lineIndices[line].first
     }
 
-    override fun draw(
-        canvas: Canvas,
-        text: CharSequence?,
-        start: Int,
-        end: Int,
-        x: Float,
-        top: Int,
-        y: Int,
-        bottom: Int,
-        paint: Paint
-    ) {
+    fun getEndIndexOfLine(line: Int): Int {
+        // no-check array index
+        return lineIndices[line].second
     }
 }
