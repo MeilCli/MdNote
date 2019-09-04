@@ -56,6 +56,14 @@ class AppLicensePlugin : ILicensePlugin {
         )
         addLicense(
             License(
+                "Material design icons",
+                "https://github.com/google/material-design-icons",
+                LicenseType.ApacheLicense2,
+                "https://github.com/google/material-design-icons/blob/master/LICENSE"
+            )
+        )
+        addLicense(
+            License(
                 "flexmark-java",
                 "https://github.com/vsch/flexmark-java",
                 LicenseType.Bsd2Clause,

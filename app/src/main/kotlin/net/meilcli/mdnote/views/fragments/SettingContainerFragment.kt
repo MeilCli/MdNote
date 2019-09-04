@@ -17,22 +17,13 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.views.activities
+package net.meilcli.mdnote.views.fragments
 
-import net.meilcli.mdnote.R
-import net.meilcli.mdnote.presenters.MainPresenter
-import net.meilcli.mdnote.views.IMainView
-import net.meilcli.mdnote.views.fragments.SettingContainerFragment
+import androidx.fragment.app.Fragment
 
-class MainActivity : BaseActivity(), IMainView {
+class SettingContainerFragment : ContainerFragment() {
 
-    override fun createView() {
-        setContentView(R.layout.activity_main)
-
-        addTypedPresenter(MainPresenter())
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container, SettingContainerFragment())
-            .commitNow()
-
+    override fun createFirstFragment(): Fragment {
+        return TestFragment.create(0)
     }
 }

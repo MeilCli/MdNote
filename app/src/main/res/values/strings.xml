@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MdNote</string>
+    <string name="app_name" translatable="false">MdNote</string>
+
+    <string name="tab_note">Note</string>
+    <string name="tab_memo">Memo</string>
+    <string name="tab_setting">Setting</string>
 </resources>

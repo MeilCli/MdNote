@@ -31,7 +31,7 @@ import net.meilcli.mdnote.views.IPresenterContainer
 import net.meilcli.mdnote.views.IView
 import net.meilcli.mdnote.views.PresenterContainer
 
-class BaseFragment : Fragment(), IView, IPresenterContainer by PresenterContainer() {
+open class BaseFragment : Fragment(), IView, IPresenterContainer by PresenterContainer() {
 
     /**
      * This view can be cast to generics presenter's type parameter

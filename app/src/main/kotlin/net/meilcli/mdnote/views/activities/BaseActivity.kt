@@ -110,10 +110,8 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer by
             }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        outState ?: return
 
         getPresenters().asSequence()
             .filterIsInstance<ISaveStatePresenter>()
