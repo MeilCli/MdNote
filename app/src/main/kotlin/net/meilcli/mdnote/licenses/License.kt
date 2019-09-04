@@ -17,14 +17,6 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.licenses
 
-import net.meilcli.mdnote.licenses.ILicensePlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
-
-interface IPlugin {
-
-    val markdown: IMarkdownPlugin?
-
-    val license: ILicensePlugin?
-}
+data class License(val name: String, val url: String, val licenseType: LicenseType, val licenseUrl: String)

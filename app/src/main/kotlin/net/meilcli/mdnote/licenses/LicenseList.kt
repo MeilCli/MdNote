@@ -17,14 +17,18 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.licenses
 
-import net.meilcli.mdnote.licenses.ILicensePlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+class LicenseList(plugins: List<ILicensePlugin>, list: MutableList<License> = mutableListOf()) : List<License> by list {
 
-interface IPlugin {
-
-    val markdown: IMarkdownPlugin?
-
-    val license: ILicensePlugin?
+    init {
+        for (plugin in plugins) {
+            plugin.applyLicenses {
+                if (list.contains(it)) {
+                    return@applyLicenses
+                }
+                list.add(it)
+            }
+        }
+    }
 }

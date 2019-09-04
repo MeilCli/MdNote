@@ -19,12 +19,13 @@
 
 package net.meilcli.mdnote
 
+import net.meilcli.mdnote.licenses.AppLicensePlugin
 import net.meilcli.mdnote.licenses.ILicensePlugin
+import net.meilcli.mdnote.markdown.AppMarkdownPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
-interface IPlugin {
+class AppPlugin : IPlugin {
 
-    val markdown: IMarkdownPlugin?
-
-    val license: ILicensePlugin?
+    override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
+    override val license: ILicensePlugin? = AppLicensePlugin()
 }

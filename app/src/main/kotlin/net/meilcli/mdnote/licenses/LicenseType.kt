@@ -17,14 +17,10 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.licenses
 
-import net.meilcli.mdnote.licenses.ILicensePlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+enum class LicenseType(val licenseName: String) {
 
-interface IPlugin {
-
-    val markdown: IMarkdownPlugin?
-
-    val license: ILicensePlugin?
+    ApacheLicense2("Apache License 2.0"),
+    Bsd2Clause("2-Clause BSD License")
 }
