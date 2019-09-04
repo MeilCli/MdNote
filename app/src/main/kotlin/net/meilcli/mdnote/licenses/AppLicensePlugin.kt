@@ -48,6 +48,14 @@ class AppLicensePlugin : ILicensePlugin {
         )
         addLicense(
             License(
+                "Material Components for Android",
+                "https://github.com/material-components/material-components-android",
+                LicenseType.ApacheLicense2,
+                "https://github.com/material-components/material-components-android/blob/master/LICENSE"
+            )
+        )
+        addLicense(
+            License(
                 "flexmark-java",
                 "https://github.com/vsch/flexmark-java",
                 LicenseType.Bsd2Clause,
