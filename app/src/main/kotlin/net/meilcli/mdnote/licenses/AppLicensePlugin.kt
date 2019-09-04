@@ -32,6 +32,14 @@ class AppLicensePlugin : ILicensePlugin {
         )
         addLicense(
             License(
+                "kotlinx.coroutines",
+                "https://github.com/Kotlin/kotlinx.coroutines",
+                LicenseType.ApacheLicense2,
+                "https://github.com/Kotlin/kotlinx.coroutines/blob/master/LICENSE.txt"
+            )
+        )
+        addLicense(
+            License(
                 "Android Jetpack",
                 "https://github.com/aosp-mirror/platform_frameworks_support",
                 LicenseType.ApacheLicense2,

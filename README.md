@@ -6,6 +6,7 @@ This application is under [LGPL](LICENSE).
 
 ### Using libraries
 - [Kotlin Standard Library](https://github.com/JetBrains/kotlin/tree/master/libraries/stdlib), published by [Apache License 2.0](https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt)
+- [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines), published by [Apache License 2.0](https://github.com/Kotlin/kotlinx.coroutines/blob/master/LICENSE.txt)
 - [Android Jetpack](https://github.com/aosp-mirror/platform_frameworks_support), published by [Apache License 2.0](https://github.com/aosp-mirror/platform_frameworks_support/blob/androidx-master-dev/LICENSE.txt)
 - [flexmark-java](https://github.com/vsch/flexmark-java), published by [2-Clause BSD License](https://github.com/vsch/flexmark-java/blob/master/LICENSE.txt)
 
