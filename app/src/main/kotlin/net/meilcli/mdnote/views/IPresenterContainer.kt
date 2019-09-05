@@ -21,15 +21,15 @@ package net.meilcli.mdnote.views
 
 import net.meilcli.mdnote.presenters.IPresenter
 
-interface IPresenterContainer {
+interface IPresenterContainer<T> where T : IPresenter {
 
     val presenterCount: Int
 
-    fun addPresenter(presenter: IPresenter)
+    fun addPresenter(presenter: T)
 
-    fun removePresenter(presenter: IPresenter)
+    fun removePresenter(presenter: T)
 
-    fun containsPresenter(presenter: IPresenter): Boolean
+    fun containsPresenter(presenter: T): Boolean
 
-    fun getPresenters(): List<IPresenter>
+    fun getPresenters(): List<T>
 }

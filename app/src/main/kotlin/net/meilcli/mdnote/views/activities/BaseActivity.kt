@@ -34,12 +34,12 @@ import net.meilcli.mdnote.views.IView
 import net.meilcli.mdnote.views.PresenterContainer
 
 @SuppressLint("Registered")
-abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer by PresenterContainer() {
+abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IPresenter> by PresenterContainer() {
 
     /**
      * This view can be cast to generics presenter's type parameter
      */
-    protected val typedPresenterContainer = PresenterContainer()
+    protected val typedPresenterContainer = PresenterContainer<ITypedPresenter<IView>>()
 
     override val mdNoteApplication: IMdNoteApplication
         get() = application as IMdNoteApplication
@@ -47,7 +47,8 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer by
     protected inline fun <reified TView> addTypedPresenter(presenter: ITypedPresenter<TView>) where TView : IView {
         addPresenter(presenter)
         if (this is TView) {
-            typedPresenterContainer.addPresenter(presenter)
+            @Suppress("UNCHECKED_CAST")
+            typedPresenterContainer.addPresenter(presenter as ITypedPresenter<IView>)
         } else {
             Log.d("a", "not cast view type")
         }

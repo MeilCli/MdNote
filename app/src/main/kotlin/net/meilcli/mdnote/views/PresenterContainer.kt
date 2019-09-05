@@ -21,26 +21,26 @@ package net.meilcli.mdnote.views
 
 import net.meilcli.mdnote.presenters.IPresenter
 
-class PresenterContainer : IPresenterContainer {
+class PresenterContainer<T> : IPresenterContainer<T> where T : IPresenter {
 
-    private val presenters = mutableListOf<IPresenter>()
+    private val presenters = mutableListOf<T>()
 
     override val presenterCount: Int
         get() = presenters.size
 
-    override fun addPresenter(presenter: IPresenter) {
+    override fun addPresenter(presenter: T) {
         presenters.add(presenter)
     }
 
-    override fun removePresenter(presenter: IPresenter) {
+    override fun removePresenter(presenter: T) {
         presenters.remove(presenter)
     }
 
-    override fun containsPresenter(presenter: IPresenter): Boolean {
+    override fun containsPresenter(presenter: T): Boolean {
         return presenters.contains(presenter)
     }
 
-    override fun getPresenters(): List<IPresenter> {
+    override fun getPresenters(): List<T> {
         return presenters
     }
 }
