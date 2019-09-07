@@ -23,17 +23,6 @@ import androidx.fragment.app.Fragment
 
 open class ContainerChildFragment : BaseFragment() {
 
-    fun addFragmentOnContainer(fragment: Fragment) {
-        var parent = parentFragment
-        while (parent != null) {
-            if (parent is ContainerFragment) {
-                parent.addFragment(fragment)
-                break
-            }
-            parent = parent.parentFragment
-        }
-    }
-
     fun replaceFragmentOnContainer(fragment: Fragment) {
         var parent = parentFragment
         while (parent != null) {
@@ -44,4 +33,6 @@ open class ContainerChildFragment : BaseFragment() {
             parent = parent.parentFragment
         }
     }
+
+    open fun updateTitle() {}
 }

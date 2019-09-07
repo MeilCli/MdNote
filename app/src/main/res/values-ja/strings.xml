@@ -18,6 +18,8 @@
   -->
 
 <resources>
+    <string name="app_description">このアプリケーションはオープンソースソフトウェアとして開発され、%1$sによって公開されています\nまた、このアプリケーションは%2$sによって作成されました\n\n誰でもこのアプリケーションを使用できますが、作成者はいかなる場合でも責任を負いません</string>
+
     <string name="tab_note">ノート</string>
     <string name="tab_memo">メモ</string>
     <string name="tab_setting">設定</string>

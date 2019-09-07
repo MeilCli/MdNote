@@ -35,6 +35,7 @@ class SettingMenuFragment : ContainerChildFragment() {
 
     data class Item(val title: String)
 
+    private val aboutThisApplicationItem by lazy { Item(getString(R.string.setting_menu_app_info)) }
     private val openSourceSoftwareLicenseItem by lazy { Item(getString(R.string.setting_menu_oss_license)) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,7 +46,7 @@ class SettingMenuFragment : ContainerChildFragment() {
         val adapter = ListAdapter({ SettingMenuViewHolder.create(it) }, ::onItemClicked)
         adapter.addAll(
             listOf(
-                Item(getString(R.string.setting_menu_app_info)),
+                aboutThisApplicationItem,
                 openSourceSoftwareLicenseItem,
                 Item(getString(R.string.setting_menu_privacy_policy))
             )
@@ -64,7 +65,18 @@ class SettingMenuFragment : ContainerChildFragment() {
 
     private fun onItemClicked(item: Item, @Suppress("UNUSED_PARAMETER") clickedViewId: Int) {
         when (item) {
-            openSourceSoftwareLicenseItem -> addFragmentOnContainer(LibraryMenuFragment())
+            aboutThisApplicationItem -> replaceFragmentOnContainer(AppInfoFragment.create())
+            openSourceSoftwareLicenseItem -> replaceFragmentOnContainer(LibraryMenuFragment.create())
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateTitle()
+    }
+
+    override fun updateTitle() {
+        requireAppCompatActivity().supportActionBar
+            ?.setTitle(R.string.app_name)
     }
 }

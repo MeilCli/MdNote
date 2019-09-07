@@ -22,6 +22,7 @@ package net.meilcli.mdnote.views.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import net.meilcli.mdnote.IMdNoteApplication
 import net.meilcli.mdnote.presenters.ILifecyclePresenter
@@ -41,6 +42,10 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
 
     override val mdNoteApplication: IMdNoteApplication
         get() = requireContext().applicationContext as IMdNoteApplication
+
+    fun requireAppCompatActivity(): AppCompatActivity {
+        return requireActivity() as AppCompatActivity
+    }
 
     protected inline fun <reified TView> addTypedPresenter(presenter: ITypedPresenter<TView>) where TView : IView {
         addPresenter(presenter)

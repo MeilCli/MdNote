@@ -80,4 +80,14 @@ class LibraryFragment : ContainerChildFragment() {
             .build()
         intent.launchUrl(requireActivity(), Uri.parse(url))
     }
+
+    override fun onResume() {
+        super.onResume()
+        updateTitle()
+    }
+
+    override fun updateTitle() {
+        requireAppCompatActivity().supportActionBar
+            ?.setTitle(R.string.setting_menu_oss_license)
+    }
 }

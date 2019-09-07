@@ -24,43 +24,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_library_menu.*
+import kotlinx.android.synthetic.main.fragment_app_info.*
 import net.meilcli.mdnote.R
-import net.meilcli.mdnote.libraries.Library
-import net.meilcli.mdnote.libraries.LibraryList
-import net.meilcli.mdnote.views.adapters.ListAdapter
-import net.meilcli.mdnote.views.holders.LibraryMenuViewHolder
 
-class LibraryMenuFragment : ContainerChildFragment() {
+class AppInfoFragment : ContainerChildFragment() {
 
     companion object {
 
-        fun create() = LibraryMenuFragment()
+        fun create() = AppInfoFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_library_menu, container, false)
+        return inflater.inflate(R.layout.fragment_app_info, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter = ListAdapter({ LibraryMenuViewHolder.create(it) }, ::onItemClicked)
-        adapter.addAll(LibraryList(mdNoteApplication.getLibraryPlugins()))
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
-        recyclerView.addItemDecoration(DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL))
+        description.text = getString(
+            R.string.app_description,
+            getString(R.string.app_license),
+            getString(R.string.app_author)
+        )
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
-            recyclerView.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+            content.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
             insets
         }
 
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun onItemClicked(item: Library, @Suppress("UNUSED_PARAMETER") clickedViewId: Int) {
-        replaceFragmentOnContainer(LibraryFragment.create(item))
     }
 
     override fun onResume() {
@@ -70,6 +60,6 @@ class LibraryMenuFragment : ContainerChildFragment() {
 
     override fun updateTitle() {
         requireAppCompatActivity().supportActionBar
-            ?.setTitle(R.string.setting_menu_oss_license)
+            ?.setTitle(R.string.setting_menu_app_info)
     }
 }

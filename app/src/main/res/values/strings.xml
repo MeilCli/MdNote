@@ -19,6 +19,11 @@
 
 <resources>
     <string name="app_name" translatable="false">MdNote</string>
+    <string name="app_description">This application is developed as Open Source Software, and published by %1$s.\nAnd also, this application is created by %2$s.\n\nEveryone can use this application, but in no event shall the creator be liable for any.</string>
+    <string name="app_author" translatable="false">MeilCli</string>
+    <string name="app_repository_url" translatable="false">https://github.com/MeilCli/MdNote</string>
+    <string name="app_license" translatable="false">GNU Lesser General Public License v3.0</string>
+    <string name="app_license_url" translatable="false">https://github.com/MeilCli/MdNote/blob/master/LICENSE</string>
 
     <string name="tab_note">Note</string>
     <string name="tab_memo">Memo</string>

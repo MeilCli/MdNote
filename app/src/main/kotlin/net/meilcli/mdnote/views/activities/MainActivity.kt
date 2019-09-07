@@ -45,6 +45,8 @@ class MainActivity : BaseActivity(), IMainView {
             insets
         }
 
+        setSupportActionBar(toolbar)
+
         addTypedPresenter(MainPresenter())
 
         val noteTopFragment = NoteTopFragment()

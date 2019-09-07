@@ -70,14 +70,6 @@ abstract class ContainerFragment : BaseFragment() {
             .commitNow()
     }
 
-    fun addFragment(fragment: Fragment) {
-        childFragmentManager.beginTransaction()
-            .add(containerId, fragment)
-            .addToBackStack(null)
-            .commit()
-        backPressed.isEnabled = true
-    }
-
     fun replaceFragment(fragment: Fragment) {
         childFragmentManager.beginTransaction()
             .replace(containerId, fragment)
