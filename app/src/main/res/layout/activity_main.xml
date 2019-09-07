@@ -46,7 +46,7 @@
             app:title="@string/app_name" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <net.meilcli.mdnote.views.custom.WindowInsetsFrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
