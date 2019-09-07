@@ -24,6 +24,8 @@ import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
 interface IMdNoteApplication {
 
+    fun isPluginInstalled(pluginName: String): Boolean
+
     fun getPlugins(): List<IPlugin>
 
     fun getMarkdownPlugins(): List<IMarkdownPlugin>

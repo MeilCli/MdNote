@@ -36,6 +36,10 @@ class MdNoteApplication : Application(), IMdNoteApplication {
         plugins.add(AppPlugin())
     }
 
+    override fun isPluginInstalled(pluginName: String): Boolean {
+        return plugins.any { it.name == pluginName }
+    }
+
     override fun getPlugins(): List<IPlugin> {
         return plugins
     }
