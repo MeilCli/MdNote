@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2019 meil
+  ~
+  ~ This file is part of MdNote.
+  ~
+  ~ MdNote is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ MdNote is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="824.24243"
+    android:viewportHeight="824.24243">
+    <group
+        android:translateX="159.93715"
+        android:translateY="179.01683">
+        <path
+            android:fillColor="#edd1d1"
+            android:pathData="M132.649,138.228l-35.952,-0.62l-40.91,205.222l27.274,0.57l32.534,-172.927l25.758,174.223l27.568,-0.258l94.457,-172.691l-38.966,173.036l30.415,-0.347l39.341,-205.476l-35.689,-0.732l-99.835,179.384l-25.995,-179.384Z" />
+        <path
+            android:fillColor="#edd1d1"
+            android:pathData="M370.983,192.775c26.171,0 56.097,20.309 56.097,71.283c0,50.974 -58.697,81.877 -82.131,81.821c-17.714,-0.042 -39.072,-15.17 -43.378,-31.093c-4.069,-15.042 -7.003,-52.407 4.017,-72.423c9.641,-17.51 18.03,-28.724 26.965,-35.941c12.578,-10.158 23.129,-13.647 38.43,-13.647ZM353.627,218.499c6.58,-3.132 35.204,-8.377 43.132,5.63c3.005,5.308 9.101,15.426 7.814,29.838c-1.415,15.845 -10.59,36.233 -15.459,46.043c-11.332,22.829 -29.22,26.963 -42.305,26.963c-13.086,0 -22.47,-16.973 -22.47,-42.46c0,-25.487 14.963,-59.196 29.288,-66.014Z" />
+        <path
+            android:fillColor="#edd1d1"
+            android:pathData="M453.35,140.132c0.093,-0.462 -0.029,-0.942 -0.332,-1.303c-0.304,-0.36 -0.755,-0.564 -1.226,-0.552c-5.741,0.148 -22.233,0.57 -22.233,0.57l-40.29,204.553l22.934,1.239c0,0 36.968,-183.732 41.147,-204.507Z" />
+    </group>
+</vector>
