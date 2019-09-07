@@ -25,6 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.fragment_library.*
 import net.meilcli.mdnote.R
 import net.meilcli.mdnote.libraries.Library
@@ -61,6 +62,11 @@ class LibraryFragment : ContainerChildFragment() {
         license.text = library.licenseUrl
         license.setOnClickListener {
             browseUrl(library.licenseUrl)
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
+            content.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+            insets
         }
 
         super.onViewCreated(view, savedInstanceState)

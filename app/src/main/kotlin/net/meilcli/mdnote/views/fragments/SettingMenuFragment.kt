@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_setting_menu.*
@@ -52,6 +53,11 @@ class SettingMenuFragment : ContainerChildFragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.addItemDecoration(DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL))
+
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
+            recyclerView.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+            insets
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }

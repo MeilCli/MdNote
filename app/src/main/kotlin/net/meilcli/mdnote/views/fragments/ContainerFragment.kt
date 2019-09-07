@@ -23,9 +23,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import net.meilcli.mdnote.views.custom.WindowInsetsFrameLayout
 
 abstract class ContainerFragment : BaseFragment() {
 
@@ -58,7 +58,7 @@ abstract class ContainerFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return FrameLayout(inflater.context).apply {
+        return WindowInsetsFrameLayout(inflater.context).apply {
             id = containerId
         }
     }
