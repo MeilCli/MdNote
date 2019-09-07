@@ -21,9 +21,27 @@ package net.meilcli.mdnote.views.fragments
 
 import androidx.fragment.app.Fragment
 
-class SettingContainerFragment : ContainerFragment() {
+open class ContainerChildFragment : BaseFragment() {
 
-    override fun createFirstFragment(): Fragment {
-        return SettingMenuFragment()
+    fun addFragmentOnContainer(fragment: Fragment) {
+        var parent = parentFragment
+        while (parent != null) {
+            if (parent is ContainerFragment) {
+                parent.addFragment(fragment)
+                break
+            }
+            parent = parent.parentFragment
+        }
+    }
+
+    fun replaceFragmentOnContainer(fragment: Fragment) {
+        var parent = parentFragment
+        while (parent != null) {
+            if (parent is ContainerFragment) {
+                parent.replaceFragment(fragment)
+                break
+            }
+            parent = parent.parentFragment
+        }
     }
 }

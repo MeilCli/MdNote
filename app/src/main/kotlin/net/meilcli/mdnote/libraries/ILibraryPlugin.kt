@@ -17,13 +17,9 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.views.fragments
+package net.meilcli.mdnote.libraries
 
-import androidx.fragment.app.Fragment
+interface ILibraryPlugin {
 
-class SettingContainerFragment : ContainerFragment() {
-
-    override fun createFirstFragment(): Fragment {
-        return SettingMenuFragment()
-    }
+    fun applyLibraries(addLibrary: (Library) -> Unit)
 }

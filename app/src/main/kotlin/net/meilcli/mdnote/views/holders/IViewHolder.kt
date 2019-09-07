@@ -17,13 +17,9 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.views.fragments
+package net.meilcli.mdnote.views.holders
 
-import androidx.fragment.app.Fragment
+interface IViewHolder<TElement> {
 
-class SettingContainerFragment : ContainerFragment() {
-
-    override fun createFirstFragment(): Fragment {
-        return SettingMenuFragment()
-    }
+    fun bind(element: TElement)
 }

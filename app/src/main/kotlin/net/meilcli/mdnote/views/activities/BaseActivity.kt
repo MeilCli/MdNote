@@ -89,6 +89,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IP
 
     abstract fun createView()
 
+    @CallSuper
     override fun onStart() {
         super.onStart()
 
@@ -100,6 +101,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IP
             }
     }
 
+    @CallSuper
     override fun onResume() {
         super.onResume()
 
@@ -111,6 +113,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IP
             }
     }
 
+    @CallSuper
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
@@ -121,6 +124,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IP
             }
     }
 
+    @CallSuper
     override fun onPause() {
         super.onPause()
 
@@ -132,6 +136,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IP
             }
     }
 
+    @CallSuper
     override fun onStop() {
         super.onStop()
 
@@ -143,6 +148,7 @@ abstract class BaseActivity : AppCompatActivity(), IView, IPresenterContainer<IP
             }
     }
 
+    @CallSuper
     override fun onDestroy() {
         super.onDestroy()
 

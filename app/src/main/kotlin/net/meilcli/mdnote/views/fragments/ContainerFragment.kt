@@ -78,6 +78,14 @@ abstract class ContainerFragment : BaseFragment() {
         backPressed.isEnabled = true
     }
 
+    fun replaceFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction()
+            .replace(containerId, fragment)
+            .addToBackStack(null)
+            .commit()
+        backPressed.isEnabled = true
+    }
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {

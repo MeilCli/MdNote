@@ -17,53 +17,53 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.licenses
+package net.meilcli.mdnote.libraries
 
-class AppLicensePlugin : ILicensePlugin {
+class AppLibraryPlugin : ILibraryPlugin {
 
-    override fun applyLicenses(addLicense: (License) -> Unit) {
-        addLicense(
-            License(
+    override fun applyLibraries(addLibrary: (Library) -> Unit) {
+        addLibrary(
+            Library(
                 "Kotlin Standard Library",
                 "https://github.com/JetBrains/kotlin/tree/master/libraries/stdlib",
                 LicenseType.ApacheLicense2,
-                "https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt"
+                "https://github.com/JetBrains/kotlin/blob/master/library/LICENSE.txt"
             )
         )
-        addLicense(
-            License(
+        addLibrary(
+            Library(
                 "kotlinx.coroutines",
                 "https://github.com/Kotlin/kotlinx.coroutines",
                 LicenseType.ApacheLicense2,
                 "https://github.com/Kotlin/kotlinx.coroutines/blob/master/LICENSE.txt"
             )
         )
-        addLicense(
-            License(
+        addLibrary(
+            Library(
                 "Android Jetpack",
                 "https://github.com/aosp-mirror/platform_frameworks_support",
                 LicenseType.ApacheLicense2,
                 "https://github.com/aosp-mirror/platform_frameworks_support/blob/androidx-master-dev/LICENSE.txt"
             )
         )
-        addLicense(
-            License(
+        addLibrary(
+            Library(
                 "Material Components for Android",
                 "https://github.com/material-components/material-components-android",
                 LicenseType.ApacheLicense2,
                 "https://github.com/material-components/material-components-android/blob/master/LICENSE"
             )
         )
-        addLicense(
-            License(
+        addLibrary(
+            Library(
                 "Material design icons",
                 "https://github.com/google/material-design-icons",
                 LicenseType.ApacheLicense2,
                 "https://github.com/google/material-design-icons/blob/master/LICENSE"
             )
         )
-        addLicense(
-            License(
+        addLibrary(
+            Library(
                 "flexmark-java",
                 "https://github.com/vsch/flexmark-java",
                 LicenseType.Bsd2Clause,

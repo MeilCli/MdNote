@@ -17,10 +17,18 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.licenses
+package net.meilcli.mdnote.libraries
 
-enum class LicenseType(val licenseName: String) {
+class LibraryList(plugins: List<ILibraryPlugin>, list: MutableList<Library> = mutableListOf()) : List<Library> by list {
 
-    ApacheLicense2("Apache License 2.0"),
-    Bsd2Clause("2-Clause BSD License")
+    init {
+        for (plugin in plugins) {
+            plugin.applyLibraries {
+                if (list.contains(it)) {
+                    return@applyLibraries
+                }
+                list.add(it)
+            }
+        }
+    }
 }

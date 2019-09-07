@@ -20,7 +20,7 @@
 package net.meilcli.mdnote
 
 import android.app.Application
-import net.meilcli.mdnote.licenses.ILicensePlugin
+import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
 class MdNoteApplication : Application(), IMdNoteApplication {
@@ -44,7 +44,7 @@ class MdNoteApplication : Application(), IMdNoteApplication {
         return plugins.mapNotNull { it.markdown }
     }
 
-    override fun getLicensePlugins(): List<ILicensePlugin> {
-        return plugins.mapNotNull { it.license }
+    override fun getLibraryPlugins(): List<ILibraryPlugin> {
+        return plugins.mapNotNull { it.library }
     }
 }

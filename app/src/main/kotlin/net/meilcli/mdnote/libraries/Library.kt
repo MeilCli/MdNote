@@ -17,18 +17,10 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.licenses
+package net.meilcli.mdnote.libraries
 
-class LicenseList(plugins: List<ILicensePlugin>, list: MutableList<License> = mutableListOf()) : List<License> by list {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-    init {
-        for (plugin in plugins) {
-            plugin.applyLicenses {
-                if (list.contains(it)) {
-                    return@applyLicenses
-                }
-                list.add(it)
-            }
-        }
-    }
-}
+@Parcelize
+data class Library(val name: String, val url: String, val licenseType: LicenseType, val licenseUrl: String) : Parcelable

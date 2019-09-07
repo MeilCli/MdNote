@@ -19,12 +19,12 @@
 
 package net.meilcli.mdnote
 
-import net.meilcli.mdnote.licenses.ILicensePlugin
+import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
 interface IPlugin {
 
     val markdown: IMarkdownPlugin?
 
-    val license: ILicensePlugin?
+    val library: ILibraryPlugin?
 }

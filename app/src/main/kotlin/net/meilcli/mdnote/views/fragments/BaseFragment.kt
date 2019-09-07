@@ -21,6 +21,7 @@ package net.meilcli.mdnote.views.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import net.meilcli.mdnote.IMdNoteApplication
 import net.meilcli.mdnote.presenters.ILifecyclePresenter
@@ -60,6 +61,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
         }
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -79,6 +81,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onStart() {
         super.onStart()
 
@@ -90,6 +93,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onResume() {
         super.onResume()
 
@@ -101,6 +105,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
@@ -111,6 +116,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onPause() {
         super.onPause()
 
@@ -122,6 +128,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onStop() {
         super.onStop()
 
@@ -133,6 +140,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -144,6 +152,7 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             }
     }
 
+    @CallSuper
     override fun onDestroy() {
         super.onDestroy()
 

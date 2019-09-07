@@ -19,7 +19,7 @@
 
 package net.meilcli.mdnote
 
-import net.meilcli.mdnote.licenses.ILicensePlugin
+import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
 interface IMdNoteApplication {
@@ -28,5 +28,5 @@ interface IMdNoteApplication {
 
     fun getMarkdownPlugins(): List<IMarkdownPlugin>
 
-    fun getLicensePlugins(): List<ILicensePlugin>
+    fun getLibraryPlugins(): List<ILibraryPlugin>
 }

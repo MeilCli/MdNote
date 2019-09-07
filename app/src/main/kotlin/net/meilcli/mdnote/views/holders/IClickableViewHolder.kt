@@ -17,6 +17,12 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote.licenses
+package net.meilcli.mdnote.views.holders
 
-data class License(val name: String, val url: String, val licenseType: LicenseType, val licenseUrl: String)
+interface IClickableViewHolder<TElement> : IViewHolder<TElement> {
+
+    /**
+     * delegate first value is clicked view id
+     */
+    fun registerClickDelegate(delegate: (Int) -> Unit)
+}

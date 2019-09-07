@@ -21,4 +21,8 @@
     <string name="tab_note">ノート</string>
     <string name="tab_memo">メモ</string>
     <string name="tab_setting">設定</string>
+
+    <string name="setting_menu_app_info">このアプリについて</string>
+    <string name="setting_menu_oss_license">オープンソースソフトウェアライセンス</string>
+    <string name="setting_menu_privacy_policy">プライバシーポリシー</string>
 </resources>
