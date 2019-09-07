@@ -17,19 +17,13 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.views.holders
 
-import net.meilcli.mdnote.editors.DefaultMemoEditorPlugin
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.libraries.AppLibraryPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.AppMarkdownPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.extensions.LayoutContainer
+import net.meilcli.mdnote.models.MemoItem
 
-class AppPlugin : IPlugin {
-
-    override val name = "app"
-    override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
-    override val library: ILibraryPlugin? = AppLibraryPlugin()
-    override val editors: List<IEditorPlugin>? = listOf(DefaultMemoEditorPlugin())
-}
+abstract class MemoViewHolder protected constructor(
+    override val containerView: View
+) : RecyclerView.ViewHolder(containerView), LayoutContainer, IClickableViewHolder<MemoItem>

@@ -31,5 +31,7 @@ interface IPresenterContainer<T> where T : IPresenter {
 
     fun containsPresenter(presenter: T): Boolean
 
+    fun clearPresenters()
+
     fun getPresenters(): List<T>
 }

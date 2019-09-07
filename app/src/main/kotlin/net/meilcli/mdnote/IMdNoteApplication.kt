@@ -19,10 +19,14 @@
 
 package net.meilcli.mdnote
 
+import net.meilcli.mdnote.editors.IEditorPlugin
 import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
+import net.meilcli.mdnote.models.Project
 
 interface IMdNoteApplication {
+
+    fun getMemos(): Sequence<Pair<String, Project>>
 
     fun isPluginInstalled(pluginName: String): Boolean
 
@@ -31,4 +35,6 @@ interface IMdNoteApplication {
     fun getMarkdownPlugins(): List<IMarkdownPlugin>
 
     fun getLibraryPlugins(): List<ILibraryPlugin>
+
+    fun getEditorPlugins(): List<IEditorPlugin>
 }

@@ -40,6 +40,10 @@ class PresenterContainer<T> : IPresenterContainer<T> where T : IPresenter {
         return presenters.contains(presenter)
     }
 
+    override fun clearPresenters() {
+        presenters.clear()
+    }
+
     override fun getPresenters(): List<T> {
         return presenters
     }

@@ -150,14 +150,12 @@ open class BaseFragment : Fragment(), IView, IPresenterContainer<IPresenter> by 
             .forEach {
                 it.onDestroyView(this)
             }
-    }
-
-    @CallSuper
-    override fun onDestroy() {
-        super.onDestroy()
 
         getPresenters().forEach {
             it.onDestroy()
         }
+
+        clearPresenters()
+        typedPresenterContainer.clearPresenters()
     }
 }

@@ -17,18 +17,13 @@
   ~ along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <string name="tab_note">ノート</string>
-    <string name="tab_memo">メモ</string>
-    <string name="tab_setting">設定</string>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:windowBackground">
 
-    <string name="setting_menu_app_info">このアプリについて</string>
-    <string name="setting_menu_oss_license">オープンソースソフトウェアライセンス</string>
-    <string name="setting_menu_privacy_policy">プライバシーポリシー</string>
-
-    <string name="editor_new">新規作成</string>
-    <string name="editor_open">開く</string>
-    <string name="editor_error">エラー</string>
-    <string name="editor_error_plugins">プラグインがインストールされていません</string>
-    <string name="editor_default_memo">標準のメモエディター</string>
-</resources>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

@@ -99,6 +99,11 @@ class ListAdapter<TViewHolder, TElement>(
         notifyItemInserted(elements.lastIndex)
     }
 
+    fun add(index: Int, element: TElement) {
+        elements.add(index, element)
+        notifyItemInserted(index)
+    }
+
     fun addAll(elements: Collection<TElement>) {
         if (elements.isEmpty()) {
             return
@@ -123,6 +128,11 @@ class ListAdapter<TViewHolder, TElement>(
     fun remove(index: Int) {
         elements.removeAt(index)
         notifyItemRemoved(index)
+    }
+
+    fun clear() {
+        elements.clear()
+        notifyDataSetChanged()
     }
 
     operator fun get(index: Int): TElement {

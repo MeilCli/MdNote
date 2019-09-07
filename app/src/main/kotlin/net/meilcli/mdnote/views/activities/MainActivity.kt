@@ -27,6 +27,8 @@ import net.meilcli.mdnote.R
 import net.meilcli.mdnote.extensions.setEdgeToEdgeWindow
 import net.meilcli.mdnote.presenters.MainPresenter
 import net.meilcli.mdnote.views.IMainView
+import net.meilcli.mdnote.views.fragments.MemoTopFragment
+import net.meilcli.mdnote.views.fragments.NoteTopFragment
 import net.meilcli.mdnote.views.fragments.SettingContainerFragment
 
 class MainActivity : BaseActivity(), IMainView {
@@ -44,8 +46,44 @@ class MainActivity : BaseActivity(), IMainView {
         }
 
         addTypedPresenter(MainPresenter())
+
+        val noteTopFragment = NoteTopFragment()
+        val memoTopFragment = MemoTopFragment()
+        val settingContainerFragment = SettingContainerFragment()
+
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, SettingContainerFragment())
+            .add(R.id.container, noteTopFragment)
+            .add(R.id.container, memoTopFragment)
+            .add(R.id.container, settingContainerFragment)
+            .hide(memoTopFragment)
+            .hide(settingContainerFragment)
             .commitNow()
+
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.tab_note -> {
+                    supportFragmentManager.beginTransaction()
+                        .show(noteTopFragment)
+                        .hide(memoTopFragment)
+                        .hide(settingContainerFragment)
+                        .commit()
+                }
+                R.id.tab_memo -> {
+                    supportFragmentManager.beginTransaction()
+                        .hide(noteTopFragment)
+                        .show(memoTopFragment)
+                        .hide(settingContainerFragment)
+                        .commit()
+                }
+                R.id.tab_setting -> {
+                    supportFragmentManager.beginTransaction()
+                        .hide(noteTopFragment)
+                        .hide(memoTopFragment)
+                        .show(settingContainerFragment)
+                        .commit()
+                }
+            }
+            true
+        }
     }
 }

@@ -19,17 +19,9 @@
 
 package net.meilcli.mdnote
 
-import net.meilcli.mdnote.editors.DefaultMemoEditorPlugin
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.libraries.AppLibraryPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.AppMarkdownPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+object Constant {
 
-class AppPlugin : IPlugin {
-
-    override val name = "app"
-    override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
-    override val library: ILibraryPlugin? = AppLibraryPlugin()
-    override val editors: List<IEditorPlugin>? = listOf(DefaultMemoEditorPlugin())
+    const val projectFile = "mdnote.yml"
+    const val memoFolder = "memo"
+    const val memoFile = "README.md"
 }

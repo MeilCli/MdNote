@@ -31,4 +31,14 @@
     <string name="library_description" translatable="false">Thanks %1$s.\n\nMdNote is using %1$s, and %1$s is published by %2$s.</string>
     <string name="library_repository_link" translatable="false">Repository Link</string>
     <string name="library_license_link" translatable="false">License Link</string>
+
+    <string name="editor_new">New Create</string>
+    <string name="editor_open">Open</string>
+    <string name="editor_error">Error</string>
+    <string name="editor_error_plugins">Not installed plugins</string>
+    <string name="editor_title_hint" translatable="false">Title</string>
+    <string name="editor_input_hint" translatable="false">Write markdown...</string>
+    <string name="editor_default_memo">A default memo editor</string>
+
+    <string name="icon" translatable="false">Icon</string>
 </resources>

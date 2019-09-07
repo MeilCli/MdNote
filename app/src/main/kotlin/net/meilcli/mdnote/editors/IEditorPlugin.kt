@@ -17,19 +17,19 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.editors
 
-import net.meilcli.mdnote.editors.DefaultMemoEditorPlugin
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.libraries.AppLibraryPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.AppMarkdownPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+import android.content.Context
+import net.meilcli.mdnote.models.Project
+import net.meilcli.mdnote.models.ProjectType
 
-class AppPlugin : IPlugin {
+interface IEditorPlugin {
 
-    override val name = "app"
-    override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
-    override val library: ILibraryPlugin? = AppLibraryPlugin()
-    override val editors: List<IEditorPlugin>? = listOf(DefaultMemoEditorPlugin())
+    val projectType: ProjectType
+    val name: String
+    val icon: Int
+    val description: Int
+
+    fun launchNewEditor(context: Context)
+    fun launchEditor(context: Context, path: String, project: Project)
 }

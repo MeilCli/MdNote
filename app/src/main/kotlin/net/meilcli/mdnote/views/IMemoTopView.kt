@@ -17,19 +17,15 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.views
 
-import net.meilcli.mdnote.editors.DefaultMemoEditorPlugin
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.libraries.AppLibraryPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.AppMarkdownPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+import net.meilcli.mdnote.models.MemoItem
 
-class AppPlugin : IPlugin {
+interface IMemoTopView : IView {
 
-    override val name = "app"
-    override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
-    override val library: ILibraryPlugin? = AppLibraryPlugin()
-    override val editors: List<IEditorPlugin>? = listOf(DefaultMemoEditorPlugin())
+    fun addAllMemoItem(items: Collection<MemoItem>)
+
+    fun addMemoItem(index: Int, item: MemoItem)
+
+    fun clearMemo()
 }

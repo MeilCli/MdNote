@@ -19,6 +19,7 @@
 
 package net.meilcli.mdnote
 
+import net.meilcli.mdnote.editors.IEditorPlugin
 import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
@@ -29,4 +30,6 @@ interface IPlugin {
     val markdown: IMarkdownPlugin?
 
     val library: ILibraryPlugin?
+
+    val editors: List<IEditorPlugin>?
 }

@@ -20,8 +20,11 @@
 package net.meilcli.mdnote
 
 import android.app.Application
+import net.meilcli.mdnote.editors.IEditorPlugin
+import net.meilcli.mdnote.extensions.memoFolders
 import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
+import net.meilcli.mdnote.models.Project
 
 class MdNoteApplication : Application(), IMdNoteApplication {
 
@@ -30,6 +33,10 @@ class MdNoteApplication : Application(), IMdNoteApplication {
     override fun onCreate() {
         super.onCreate()
         loadPlugins()
+    }
+
+    override fun getMemos(): Sequence<Pair<String, Project>> {
+        return memoFolders()
     }
 
     private fun loadPlugins() {
@@ -50,5 +57,9 @@ class MdNoteApplication : Application(), IMdNoteApplication {
 
     override fun getLibraryPlugins(): List<ILibraryPlugin> {
         return plugins.mapNotNull { it.library }
+    }
+
+    override fun getEditorPlugins(): List<IEditorPlugin> {
+        return plugins.mapNotNull { it.editors }.flatten()
     }
 }
