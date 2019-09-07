@@ -26,6 +26,7 @@ import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
 class AppPlugin : IPlugin {
 
+    override val name = "app"
     override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
     override val library: ILibraryPlugin? = AppLibraryPlugin()
 }

@@ -24,6 +24,8 @@ import net.meilcli.mdnote.markdown.IMarkdownPlugin
 
 interface IPlugin {
 
+    val name: String
+
     val markdown: IMarkdownPlugin?
 
     val library: ILibraryPlugin?
