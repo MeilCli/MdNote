@@ -40,6 +40,14 @@ class AppLibraryPlugin : ILibraryPlugin {
         )
         addLibrary(
             Library(
+                "kotlinx.serialization",
+                "https://github.com/Kotlin/kotlinx.serialization",
+                LicenseType.ApacheLicense2,
+                "https://github.com/Kotlin/kotlinx.serialization/blob/master/LICENSE.txt"
+            )
+        )
+        addLibrary(
+            Library(
                 "Android Jetpack",
                 "https://github.com/aosp-mirror/platform_frameworks_support",
                 LicenseType.ApacheLicense2,
@@ -68,6 +76,14 @@ class AppLibraryPlugin : ILibraryPlugin {
                 "https://github.com/vsch/flexmark-java",
                 LicenseType.Bsd2Clause,
                 "https://github.com/vsch/flexmark-java/blob/master/LICENSE.txt"
+            )
+        )
+        addLibrary(
+            Library(
+                "kaml",
+                "https://github.com/charleskorn/kaml",
+                LicenseType.ApacheLicense2,
+                "https://github.com/charleskorn/kaml/blob/master/LICENSE"
             )
         )
     }
