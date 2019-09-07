@@ -1,5 +1,5 @@
 # MdNote
-![](app/src/main/res/mipmap-xhdpi/icon_launcher_round.png) > MdNote is markdown live editor.
+![](app/src/main/res/mipmap-xhdpi/ic_launcher_round.png) > MdNote is markdown live editor.
 
 ## License
 This application is under [LGPL](LICENSE).
