@@ -1,4 +1,6 @@
 # MdNote
+![](https://github.com/MeilCli/MdNote/workflows/Android%20CI/badge.svg)
+
 ![](app/src/main/res/mipmap-xhdpi/ic_launcher_round.png) > MdNote is markdown live editor.
 
 ## Build
