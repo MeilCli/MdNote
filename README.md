@@ -7,7 +7,10 @@
 ToDo
 
 ## Contribute
-ToDo
+- create issue for bug report, feature request, or etc..
+  - see [New Issue from template](https://github.com/MeilCli/MdNote/issues/new/choose)
+- create pull request
+  - see [Contributing.md](.github/CONTRIBUTING.md)
 
 ## License
 This application is under [LGPL](LICENSE).
