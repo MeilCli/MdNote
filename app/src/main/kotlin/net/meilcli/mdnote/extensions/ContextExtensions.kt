@@ -48,6 +48,10 @@ fun Context.newMemoFolderPath(): String {
 
 fun Context.memoFolders(): Sequence<Pair<String, Project>> = sequence {
     val root = File(filesDir, Constant.memoFolder)
+    if (root.exists().not()) {
+        return@sequence
+    }
+
     for (file in root.listFiles()) {
         try {
             if (file.isDirectory.not()) {

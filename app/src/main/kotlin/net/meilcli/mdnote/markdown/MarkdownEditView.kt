@@ -23,9 +23,9 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.widget.EditText
+import androidx.appcompat.widget.AppCompatEditText
 
-class MarkdownEditView : EditText {
+class MarkdownEditView : AppCompatEditText {
 
     private val textWatcher: TextWatcher
     private val spans = mutableListOf<MarkdownSpan>()
@@ -36,12 +36,6 @@ class MarkdownEditView : EditText {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
 
     init {
         textWatcher = MarkdownWatcher()
@@ -50,6 +44,7 @@ class MarkdownEditView : EditText {
 
     override fun onSelectionChanged(selectionStart: Int, selectionEnd: Int) {
         super.onSelectionChanged(selectionStart, selectionEnd)
+        val text = text ?: return
         if (text.isEmpty()) {
             // guard null-pointer when constructing instance
             return
@@ -61,6 +56,7 @@ class MarkdownEditView : EditText {
 
     // ToDo: Range check
     private fun showHidedSpanIfNeeded(selectionStart: Int, selectionEnd: Int) {
+        val text = text ?: return
         val hidedSpan = hidedSpan ?: return
         if (selectionStart !in hidedSpan.startIndex..hidedSpan.endIndex) {
             hidedSpan.attachEditable(text)
@@ -73,6 +69,7 @@ class MarkdownEditView : EditText {
 
     // ToDo: Range check
     private fun hideSpanIfNeeded(selectionStart: Int, selectionEnd: Int) {
+        val text = text ?: return
         if (hidedSpan != null) {
             // hided span must be single
             return

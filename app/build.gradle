@@ -32,6 +32,10 @@ android {
         targetCompatibility = "8"
         sourceCompatibility = "8"
     }
+    lintOptions {
+        // flexmark-util's ImageUtils depends java.awt
+        disable 'InvalidPackage'
+    }
 }
 
 androidExtensions {
