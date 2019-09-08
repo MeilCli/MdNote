@@ -32,5 +32,15 @@
     <string name="editor_open">開く</string>
     <string name="editor_error">エラー</string>
     <string name="editor_error_plugins">プラグインがインストールされていません</string>
+    <string name="editor_default_note">標準のノートエディター</string>
     <string name="editor_default_memo">標準のメモエディター</string>
+
+    <string name="permission_denied">権限が拒否されたためキャンセルします</string>
+    <string name="permission_never_ask_again">Android設定でアプリに権限を許可してください</string>
+
+    <string name="explorer_not_available_storage">ストレージが使用できません</string>
+    <string name="explorer_select_folder">フォルダー選択</string>
+
+    <string name="select">選択</string>
+    <string name="cancel">キャンセル</string>
 </resources>

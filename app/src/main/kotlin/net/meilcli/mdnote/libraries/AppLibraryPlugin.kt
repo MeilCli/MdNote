@@ -86,5 +86,13 @@ class AppLibraryPlugin : ILibraryPlugin {
                 "https://github.com/charleskorn/kaml/blob/master/LICENSE"
             )
         )
+        addLibrary(
+            Library(
+                "PermissionsDispatcher ",
+                "https://github.com/permissions-dispatcher/PermissionsDispatcher",
+                LicenseType.ApacheLicense2,
+                "https://github.com/permissions-dispatcher/PermissionsDispatcher/blob/master/LICENSE"
+            )
+        )
     }
 }

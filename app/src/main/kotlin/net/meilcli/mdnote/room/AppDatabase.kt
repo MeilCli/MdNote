@@ -17,29 +17,24 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.room
 
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.explorers.IExplorerPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
-import net.meilcli.mdnote.models.Project
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import net.meilcli.mdnote.room.dao.INoteProjectDataAccessor
+import net.meilcli.mdnote.room.entities.NoteProject
 
-interface IMdNoteApplication {
+@Database(entities = [NoteProject::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
 
-    fun getMemos(): Sequence<Pair<String, Project>>
+    companion object {
 
-    suspend fun getNotes(): Sequence<Pair<String, Project>>
+        fun open(context: Context) =
+            Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app-database")
+                .build()
+    }
 
-    fun isPluginInstalled(pluginName: String): Boolean
-
-    fun getPlugins(): List<IPlugin>
-
-    fun getMarkdownPlugins(): List<IMarkdownPlugin>
-
-    fun getLibraryPlugins(): List<ILibraryPlugin>
-
-    fun getEditorPlugins(): List<IEditorPlugin>
-
-    fun getExplorerPlugins(): List<IExplorerPlugin>
+    abstract fun noteProjectDataAccessor(): INoteProjectDataAccessor
 }

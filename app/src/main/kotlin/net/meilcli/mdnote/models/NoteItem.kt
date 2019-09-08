@@ -17,29 +17,12 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.models
 
 import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.explorers.IExplorerPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
-import net.meilcli.mdnote.models.Project
 
-interface IMdNoteApplication {
+sealed class NoteItem {
 
-    fun getMemos(): Sequence<Pair<String, Project>>
-
-    suspend fun getNotes(): Sequence<Pair<String, Project>>
-
-    fun isPluginInstalled(pluginName: String): Boolean
-
-    fun getPlugins(): List<IPlugin>
-
-    fun getMarkdownPlugins(): List<IMarkdownPlugin>
-
-    fun getLibraryPlugins(): List<ILibraryPlugin>
-
-    fun getEditorPlugins(): List<IEditorPlugin>
-
-    fun getExplorerPlugins(): List<IExplorerPlugin>
+    data class New(val editor: IEditorPlugin) : NoteItem()
+    data class Open(val path: String, val project: Project) : NoteItem()
 }

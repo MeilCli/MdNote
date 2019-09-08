@@ -17,29 +17,16 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.room.entities
 
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.explorers.IExplorerPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
-import net.meilcli.mdnote.models.Project
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-interface IMdNoteApplication {
+@Entity
+class NoteProject {
 
-    fun getMemos(): Sequence<Pair<String, Project>>
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 
-    suspend fun getNotes(): Sequence<Pair<String, Project>>
-
-    fun isPluginInstalled(pluginName: String): Boolean
-
-    fun getPlugins(): List<IPlugin>
-
-    fun getMarkdownPlugins(): List<IMarkdownPlugin>
-
-    fun getLibraryPlugins(): List<ILibraryPlugin>
-
-    fun getEditorPlugins(): List<IEditorPlugin>
-
-    fun getExplorerPlugins(): List<IExplorerPlugin>
+    var path: String = ""
 }

@@ -20,7 +20,10 @@
 package net.meilcli.mdnote
 
 import net.meilcli.mdnote.editors.DefaultMemoEditorPlugin
+import net.meilcli.mdnote.editors.DefaultNoteEditorPlugin
 import net.meilcli.mdnote.editors.IEditorPlugin
+import net.meilcli.mdnote.explorers.IExplorerPlugin
+import net.meilcli.mdnote.explorers.SelectFolderExplorerPlugin
 import net.meilcli.mdnote.libraries.AppLibraryPlugin
 import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.AppMarkdownPlugin
@@ -31,5 +34,6 @@ class AppPlugin : IPlugin {
     override val name = "app"
     override val markdown: IMarkdownPlugin? = AppMarkdownPlugin()
     override val library: ILibraryPlugin? = AppLibraryPlugin()
-    override val editors: List<IEditorPlugin>? = listOf(DefaultMemoEditorPlugin())
+    override val editors: List<IEditorPlugin>? = listOf(DefaultNoteEditorPlugin(), DefaultMemoEditorPlugin())
+    override val explorers: List<IExplorerPlugin>? = listOf(SelectFolderExplorerPlugin())
 }

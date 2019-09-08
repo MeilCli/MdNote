@@ -17,29 +17,17 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.explorers
 
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.explorers.IExplorerPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
-import net.meilcli.mdnote.models.Project
+import net.meilcli.mdnote.R
+import java.io.File
+import java.util.*
 
-interface IMdNoteApplication {
+object JpegFiler : IFiler {
 
-    fun getMemos(): Sequence<Pair<String, Project>>
+    override val icon = R.drawable.ic_image_black_24dp
 
-    suspend fun getNotes(): Sequence<Pair<String, Project>>
-
-    fun isPluginInstalled(pluginName: String): Boolean
-
-    fun getPlugins(): List<IPlugin>
-
-    fun getMarkdownPlugins(): List<IMarkdownPlugin>
-
-    fun getLibraryPlugins(): List<ILibraryPlugin>
-
-    fun getEditorPlugins(): List<IEditorPlugin>
-
-    fun getExplorerPlugins(): List<IExplorerPlugin>
+    override fun isMatch(file: File): Boolean {
+        return file.extension.toLowerCase(Locale.ENGLISH) == "jpg" || file.extension.toLowerCase(Locale.ENGLISH) == "jpeg"
+    }
 }

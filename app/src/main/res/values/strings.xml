@@ -17,7 +17,7 @@
   ~ along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">MdNote</string>
     <string name="app_description">This application is developed as Open Source Software, and published by %1$s.\nAnd also, this application is created by %2$s.\n\nEveryone can use this application, but in no event shall the creator be liable for any.</string>
     <string name="app_author" translatable="false">MeilCli</string>
@@ -43,7 +43,16 @@
     <string name="editor_error_plugins">Not installed plugins</string>
     <string name="editor_title_hint" translatable="false">Title</string>
     <string name="editor_input_hint" translatable="false">Write markdown...</string>
+    <string name="editor_default_note">A default note editor</string>
     <string name="editor_default_memo">A default memo editor</string>
 
+    <string name="permission_denied">cancel because permission denied</string>
+    <string name="permission_never_ask_again">please grant permission to app in android setting</string>
+
+    <string name="explorer_not_available_storage">Not Available Storage</string>
+    <string name="explorer_select_folder">Select Folder</string>
+
     <string name="icon" translatable="false">Icon</string>
+    <string name="select">select</string>
+    <string name="cancel" tools:ignore="ButtonCase">cancel</string>
 </resources>

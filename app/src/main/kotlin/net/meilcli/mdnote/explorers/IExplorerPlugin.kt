@@ -17,29 +17,23 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.explorers
 
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.explorers.IExplorerPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
-import net.meilcli.mdnote.models.Project
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import net.meilcli.mdnote.views.fragments.ContainerChildFragment
 
-interface IMdNoteApplication {
+interface IExplorerPlugin {
 
-    fun getMemos(): Sequence<Pair<String, Project>>
+    val name: String
+    val title: Int
+    val filers: List<IFiler>
 
-    suspend fun getNotes(): Sequence<Pair<String, Project>>
+    fun createMenu(activity: AppCompatActivity, path: String, menu: Menu, menuInflater: MenuInflater)
 
-    fun isPluginInstalled(pluginName: String): Boolean
+    fun onSelectMenuItem(activity: AppCompatActivity, path: String, item: MenuItem)
 
-    fun getPlugins(): List<IPlugin>
-
-    fun getMarkdownPlugins(): List<IMarkdownPlugin>
-
-    fun getLibraryPlugins(): List<ILibraryPlugin>
-
-    fun getEditorPlugins(): List<IEditorPlugin>
-
-    fun getExplorerPlugins(): List<IExplorerPlugin>
+    fun onSelectPath(fragment: ContainerChildFragment, path: String, matchingFiler: IFiler)
 }

@@ -17,29 +17,26 @@
  * along with MdNote.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.meilcli.mdnote
+package net.meilcli.mdnote.editors
 
-import net.meilcli.mdnote.editors.IEditorPlugin
-import net.meilcli.mdnote.explorers.IExplorerPlugin
-import net.meilcli.mdnote.libraries.ILibraryPlugin
-import net.meilcli.mdnote.markdown.IMarkdownPlugin
+import android.content.Context
+import net.meilcli.mdnote.R
 import net.meilcli.mdnote.models.Project
+import net.meilcli.mdnote.models.ProjectType
+import net.meilcli.mdnote.views.activities.NewNoteActivity
 
-interface IMdNoteApplication {
+class DefaultNoteEditorPlugin : IEditorPlugin {
 
-    fun getMemos(): Sequence<Pair<String, Project>>
+    override val projectType = ProjectType.Note
+    override val name = "default_note"
+    override val icon = R.drawable.ic_note_add_black_24dp
+    override val description = R.string.editor_default_note
 
-    suspend fun getNotes(): Sequence<Pair<String, Project>>
+    override fun launchNewEditor(context: Context) {
+        context.startActivity(NewNoteActivity.createIntent(context))
+    }
 
-    fun isPluginInstalled(pluginName: String): Boolean
+    override fun launchEditor(context: Context, path: String, project: Project) {
 
-    fun getPlugins(): List<IPlugin>
-
-    fun getMarkdownPlugins(): List<IMarkdownPlugin>
-
-    fun getLibraryPlugins(): List<ILibraryPlugin>
-
-    fun getEditorPlugins(): List<IEditorPlugin>
-
-    fun getExplorerPlugins(): List<IExplorerPlugin>
+    }
 }

@@ -19,11 +19,15 @@
 
 package net.meilcli.mdnote.extensions
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import com.charleskorn.kaml.Yaml
 import net.meilcli.mdnote.Constant
 import net.meilcli.mdnote.IMdNoteApplication
 import net.meilcli.mdnote.models.Project
+import net.meilcli.mdnote.room.AppDatabase
 import java.io.File
 
 fun Context.mdNoteApplication(): IMdNoteApplication {
@@ -75,3 +79,33 @@ fun Context.memoFolders(): Sequence<Pair<String, Project>> = sequence {
     }
 }
 
+suspend fun Context.noteFolders(): Sequence<Pair<String, Project>> {
+    if (ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED
+    ) {
+        return emptySequence()
+    }
+
+    return sequence {
+        val database = AppDatabase.open(this@noteFolders)
+        for (noteProject in database.noteProjectDataAccessor().getAll()) {
+            try {
+                val folder = File(noteProject.path)
+                if (folder.exists().not() || folder.isDirectory.not()) {
+                    continue
+                }
+
+                val projectFile = File(folder, Constant.projectFile)
+                if (projectFile.exists().not() || projectFile.isFile.not()) {
+                    continue
+                }
+                val project = Yaml.default.parse(Project.serializer(), projectFile.readText())
+
+                yield(Pair(folder.absolutePath, project))
+            } catch (_: Exception) {
+            }
+        }
+    }
+}

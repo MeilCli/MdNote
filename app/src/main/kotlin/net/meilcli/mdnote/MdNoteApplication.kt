@@ -21,7 +21,9 @@ package net.meilcli.mdnote
 
 import android.app.Application
 import net.meilcli.mdnote.editors.IEditorPlugin
+import net.meilcli.mdnote.explorers.IExplorerPlugin
 import net.meilcli.mdnote.extensions.memoFolders
+import net.meilcli.mdnote.extensions.noteFolders
 import net.meilcli.mdnote.libraries.ILibraryPlugin
 import net.meilcli.mdnote.markdown.IMarkdownPlugin
 import net.meilcli.mdnote.models.Project
@@ -37,6 +39,10 @@ class MdNoteApplication : Application(), IMdNoteApplication {
 
     override fun getMemos(): Sequence<Pair<String, Project>> {
         return memoFolders()
+    }
+
+    override suspend fun getNotes(): Sequence<Pair<String, Project>> {
+        return noteFolders()
     }
 
     private fun loadPlugins() {
@@ -61,5 +67,9 @@ class MdNoteApplication : Application(), IMdNoteApplication {
 
     override fun getEditorPlugins(): List<IEditorPlugin> {
         return plugins.mapNotNull { it.editors }.flatten()
+    }
+
+    override fun getExplorerPlugins(): List<IExplorerPlugin> {
+        return plugins.mapNotNull { it.explorers }.flatten()
     }
 }
