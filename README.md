@@ -3,6 +3,25 @@
 
 ![](app/src/main/res/mipmap-xhdpi/ic_launcher_round.png) > MdNote is markdown live editor.
 
+## Roadmap
+- Add feature 
+  - [ ] `Note` that alike repository
+  - [ ] `Note` publish to GitHub, as dynamic feature module
+  - [ ] `Memo` publish to Hatena blog, as dynamic feature module
+  - [ ] `Memo` import/export
+  - [ ] Help view
+  - [ ] DayNight theme
+- Support some markdown syntax
+  - [ ] line break
+  - [ ] image
+  - [ ] table
+  - [ ] task list
+  - [ ] code block
+  - [ ] inline code
+  - [ ] other gfm style
+- [ ] Store beta release
+- [ ] Store release
+
 ## Build
 ToDo
 
