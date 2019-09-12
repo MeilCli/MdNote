@@ -29,13 +29,15 @@ class ExplorerContainerFragment : ContainerFragment() {
     companion object {
 
         private const val explorerPluginArgumentKey = "explorer_plugin_argument_key"
-        private const val rootPathArgumentKey = "root_path_argument_key"
+        private const val rootPathArgumentKey = "path_argument_key"
+        private const val basePathArgumentKey = "base_path_argument_key"
 
-        fun create(explorerPlugin: IExplorerPlugin, rootPath: String?): ExplorerContainerFragment {
+        fun create(explorerPlugin: IExplorerPlugin, rootPath: String?, basePath: String?): ExplorerContainerFragment {
             return ExplorerContainerFragment().apply {
                 arguments = Bundle().apply {
                     putString(explorerPluginArgumentKey, explorerPlugin.name)
                     putString(rootPathArgumentKey, rootPath)
+                    putString(basePathArgumentKey, basePath)
                 }
             }
         }
@@ -47,6 +49,7 @@ class ExplorerContainerFragment : ContainerFragment() {
         val explorerPlugin = mdNoteApplication.getExplorerPlugins().first { it.name == explorerPluginName }
         val rootPath = arguments.getString(rootPathArgumentKey)
             ?: requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.absolutePath
-        return ExplorerFragment.create(explorerPlugin, checkNotNull(rootPath))
+        val basePath = arguments.getString(basePathArgumentKey)
+        return ExplorerFragment.create(explorerPlugin, checkNotNull(rootPath), basePath ?: checkNotNull(rootPath))
     }
 }

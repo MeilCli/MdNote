@@ -31,19 +31,22 @@ import net.meilcli.mdnote.presenters.ExplorerPresenter
 import net.meilcli.mdnote.views.IExplorerView
 import net.meilcli.mdnote.views.adapters.ListAdapter
 import net.meilcli.mdnote.views.holders.ExplorerViewHolder
+import java.io.File
 
 class ExplorerFragment : ContainerChildFragment(), IExplorerView {
 
     companion object {
 
         private const val explorerPluginArgumentKey = "explorer_plugin_argument_key"
-        private const val pathArgumentKey = "root_path_argument_key"
+        private const val pathArgumentKey = "path_argument_key"
+        private const val basePathArgumentKey = "base_path_argument_key"
 
-        fun create(explorerPlugin: IExplorerPlugin, path: String): ExplorerFragment {
+        fun create(explorerPlugin: IExplorerPlugin, path: String, basePath: String): ExplorerFragment {
             return ExplorerFragment().apply {
                 arguments = Bundle().apply {
                     putString(explorerPluginArgumentKey, explorerPlugin.name)
                     putString(pathArgumentKey, path)
+                    putString(basePathArgumentKey, basePath)
                 }
             }
         }
@@ -53,12 +56,14 @@ class ExplorerFragment : ContainerChildFragment(), IExplorerView {
     private lateinit var adapter: ListAdapter<ExplorerViewHolder, ExplorerItem>
     private lateinit var explorerPlugin: IExplorerPlugin
     private lateinit var currentPath: String
+    private lateinit var basePath: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val arguments = checkNotNull(arguments)
         val explorerPluginName = checkNotNull(arguments.getString(explorerPluginArgumentKey))
         explorerPlugin = mdNoteApplication.getExplorerPlugins().first { it.name == explorerPluginName }
         currentPath = checkNotNull(arguments.getString(pathArgumentKey))
+        basePath = checkNotNull(arguments.getString(basePathArgumentKey))
 
         setHasOptionsMenu(true)
 
@@ -70,11 +75,15 @@ class ExplorerFragment : ContainerChildFragment(), IExplorerView {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.addItemDecoration(DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL))
-        path.text = currentPath
+        path.text = relativePath()
 
         addTypedPresenter(ExplorerPresenter(currentPath, explorerPlugin.filers))
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun relativePath(): String {
+        return "/" + File(currentPath).toRelativeString(File(basePath))
     }
 
     override fun addAllExplorerItem(items: Collection<ExplorerItem>) {
@@ -86,7 +95,7 @@ class ExplorerFragment : ContainerChildFragment(), IExplorerView {
     }
 
     private fun onItemClick(item: ExplorerItem, @Suppress("UNUSED_PARAMETER") clickedViewId: Int) {
-        explorerPlugin.onSelectPath(this, item.path, item.filer)
+        explorerPlugin.onSelectPath(this, item.path, basePath, item.filer)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

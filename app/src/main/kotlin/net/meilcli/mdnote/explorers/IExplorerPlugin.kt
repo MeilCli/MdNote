@@ -35,5 +35,5 @@ interface IExplorerPlugin {
 
     fun onSelectMenuItem(activity: AppCompatActivity, path: String, item: MenuItem)
 
-    fun onSelectPath(fragment: ContainerChildFragment, path: String, matchingFiler: IFiler)
+    fun onSelectPath(fragment: ContainerChildFragment, path: String, basePath: String, matchingFiler: IFiler)
 }

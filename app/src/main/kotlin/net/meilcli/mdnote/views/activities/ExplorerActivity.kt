@@ -37,12 +37,21 @@ class ExplorerActivity : BaseActivity() {
         const val resultPath = "result_path"
         private const val explorerPluginExtraKey = "explorer_plugin_extra_key"
         private const val pathExtraKey = "path_extra_key"
+        private const val basePathExtraKey = "base_path_extra_key"
 
-        fun createIntent(context: Context, explorerPlugin: IExplorerPlugin, path: String? = null): Intent {
+        fun createIntent(
+            context: Context,
+            explorerPlugin: IExplorerPlugin,
+            path: String? = null,
+            basePath: String? = null
+        ): Intent {
             return Intent(context, ExplorerActivity::class.java).apply {
                 putExtra(explorerPluginExtraKey, explorerPlugin.name)
                 if (path != null) {
                     putExtra(pathExtraKey, path)
+                }
+                if (basePath != null) {
+                    putExtra(basePathExtraKey, basePath)
                 }
             }
         }
@@ -68,11 +77,12 @@ class ExplorerActivity : BaseActivity() {
         val explorerPluginName = checkNotNull(intent.getStringExtra(explorerPluginExtraKey))
         val explorerPlugin = mdNoteApplication.getExplorerPlugins().first { it.name == explorerPluginName }
         val path: String? = intent.getStringExtra(pathExtraKey)
+        val basePath: String? = intent.getStringExtra(basePathExtraKey)
 
         supportActionBar?.setTitle(explorerPlugin.title)
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, ExplorerContainerFragment.create(explorerPlugin, path))
+            .add(R.id.container, ExplorerContainerFragment.create(explorerPlugin, path, basePath))
             .commitNow()
 
     }

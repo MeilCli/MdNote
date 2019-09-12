@@ -78,9 +78,9 @@ class SelectFolderExplorerPlugin : IExplorerPlugin {
         }
     }
 
-    override fun onSelectPath(fragment: ContainerChildFragment, path: String, matchingFiler: IFiler) {
+    override fun onSelectPath(fragment: ContainerChildFragment, path: String, basePath: String, matchingFiler: IFiler) {
         if (matchingFiler is FolderFiler) {
-            fragment.replaceFragmentOnContainer(ExplorerFragment.create(this, path))
+            fragment.replaceFragmentOnContainer(ExplorerFragment.create(this, path, basePath))
         }
     }
 }
