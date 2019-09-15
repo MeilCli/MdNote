@@ -55,7 +55,7 @@ jobs:
         if: github.event_name  == 'pull_request'
         with:
           ruby-version: '2.6'
-      - uses: MeilCli/danger-action@master
+      - uses: MeilCli/danger-action@v1
         if: github.event_name  == 'pull_request'
         with:
           plugins_file: 'Gemfile'
